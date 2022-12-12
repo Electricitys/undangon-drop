@@ -1,5 +1,6 @@
 const fastify = require("fastify")({ logger: true });
 const { Server, FileStore } = require("tus-node-server");
+const PORT = process.env.PORT;
 
 const tusServer = new Server({
   path: "/files",
@@ -20,7 +21,7 @@ fastify.get("/", async (req, res) => {
   return "Drop some file please";
 });
 
-fastify.listen(3010, (err) => {
+fastify.listen(PORT, (err) => {
   if (err) {
     fastify.log.error(err);
     process.exit(1);
