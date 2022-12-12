@@ -12,7 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fastify": "^4.10.2",
     "tus-node-server": "^0.9.0"
+  },
+  "engines": {
+    "node": "^16"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"

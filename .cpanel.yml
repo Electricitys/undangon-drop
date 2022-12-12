@@ -1,6 +1,6 @@
 ---
 deployment:
  tasks:
- - export DEPLOYPATH=/home/u1577819/node_application/drop.manjo.space
+ - export DEPLOYPATH=/home/u1577819/drop.manjo.space
  - /bin/cp index.html $DEPLOYPATH
  - /bin/cp style.css $DEPLOYPATH

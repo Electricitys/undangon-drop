@@ -1,10 +1,28 @@
-const tus = require('tus-node-server');
+const fastify = require("fastify")({ logger: true });
+const { Server, FileStore } = require("tus-node-server");
 
-const server = new tus.Server({ path: '/files' });
-server.datastore = new tus.FileStore({ directory: './files' });
+const tusServer = new Server({
+  path: "/files",
+  datastore: new FileStore({ directory: "./files" }),
+});
 
-const host = '127.0.0.1';
-const port = 1080;
-server.listen({ host, port }, () => {
-    console.log(`[${new Date().toLocaleTimeString()}] tus server listening at http://${host}:${port}`);
+fastify.addContentTypeParser(
+  "application/offset+octet-stream",
+  (request, payload, done) => done(null)
+);
+fastify.all("/files", (req, res) => {
+  tusServer.handle(req.raw, res.raw);
+});
+fastify.all("/files/*", (req, res) => {
+  tusServer.handle(req.raw, res.raw);
+});
+fastify.get("/", async (req, res) => {
+  return "Drop some file please";
+});
+
+fastify.listen(3010, (err) => {
+  if (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
 });
