@@ -5,14 +5,14 @@
 const fs = require("fs");
 const tus = require("tus-js-client");
 
-const path = `${__dirname}/README.md`;
+const path = `${__dirname}/avatar.png`;
 const file = fs.createReadStream(path);
 
 const options = {
-  endpoint: "http://localhost:1080/files/test",
+  endpoint: "http://localhost:4040/",
   metadata: {
-    filename: "README.md",
-    filetype: "text/plain",
+    filename: `${new Date().getTime()}-avatar.png`,
+    filetype: "image/png",
     userId: "COBA",
   },
   onError(error) {
